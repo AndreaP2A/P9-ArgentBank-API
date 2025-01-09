@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -8,6 +9,8 @@ const NavBar = () => {
     // Check if the user is logged in by checking localStorage or a global state
     const token = localStorage.getItem("token");
     const name = localStorage.getItem("userName");
+    console.log("Retrieved token:", token);
+    console.log("Retrieved user name:", name);
     if (token && name) {
       setIsLoggedIn(true);
       setUserName(name);
@@ -24,31 +27,31 @@ const NavBar = () => {
 
   return (
     <nav className="main-nav">
-      <a className="main-nav-logo" href="/">
+      <Link className="main-nav-logo" to="/">
         <img
           className="main-nav-logo-image"
           src="./src/assets/img/argentBankLogo.png"
           alt="Argent Bank Logo"
         />
         <h1 className="sr-only">Argent Bank</h1>
-      </a>
+      </Link>
       <div>
         {isLoggedIn ? (
           <>
-            <a className="main-nav-item" href="/user">
+            <Link className="main-nav-item" to="/user">
               <i className="fa fa-user-circle"></i>
               {userName}
-            </a>
-            <a className="main-nav-item" href="/" onClick={handleSignOut}>
+            </Link>
+            <Link className="main-nav-item" to="/" onClick={handleSignOut}>
               <i className="fa fa-sign-out"></i>
               Sign Out
-            </a>
+            </Link>
           </>
         ) : (
-          <a className="main-nav-item" href="/sign-in">
+          <Link className="main-nav-item" to="/sign-in">
             <i className="fa fa-user-circle"></i>
             Sign In
-          </a>
+          </Link>
         )}
       </div>
     </nav>

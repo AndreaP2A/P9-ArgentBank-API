@@ -1,6 +1,6 @@
 import NavBar from "../../components/NavBar";
-import HeroSection from "../../components/HeroSection";
-import FeaturesSection from "../../components/FeaturesSection";
+import HeroBanner from "../../components/HeroBanner";
+import FeatureSection from "../../components/FeatureSection";
 import Footer from "../../components/Footer";
 
 const Home = () => {
@@ -8,8 +8,8 @@ const Home = () => {
     <div>
       <NavBar />
       <main>
-        <HeroSection />
-        <FeaturesSection />
+        <HeroBanner />
+        <FeatureSection />
       </main>
       <Footer />
     </div>

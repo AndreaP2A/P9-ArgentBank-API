@@ -9,23 +9,6 @@ const handleResponse = async (response) => {
   return response.json();
 };
 
-// Sign up a new user
-export const signUp = async (userData) => {
-  try {
-    const response = await fetch(`${API_URL}/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    });
-    return handleResponse(response);
-  } catch (error) {
-    console.error("Error signing up:", error);
-    throw error;
-  }
-};
-
 // Log in a user
 export const login = async (credentials) => {
   try {
@@ -53,7 +36,9 @@ export const getUserProfile = async (token) => {
         "Content-Type": "application/json",
       },
     });
-    return handleResponse(response);
+    const data = await handleResponse(response);
+    console.log("User profile response:", data);
+    return data;
   } catch (error) {
     console.error("Error fetching user profile:", error);
     throw error;

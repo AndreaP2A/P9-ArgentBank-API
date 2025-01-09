@@ -1,16 +1,16 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Index from "../pages/home/home";
-import SignIn from "../pages/signIn/sign-in";
+import { HashRouter as Router, Route, Routes } from "react-router-dom"; //BrowserRouter didn't work (??)
+import Home from "../pages/home/home";
+import SignIn from "../pages/sign-in/sign-in";
 import User from "../pages/user/user";
 
 const AppRouter = () => {
   return (
     <Router>
-      <Switch>
-        <Route exact path="/" component={Index} />
-        <Route path="/sign-in" component={SignIn} />
-        <Route path="/user" component={User} />
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/user" element={<User />} />
+      </Routes>
     </Router>
   );
 };

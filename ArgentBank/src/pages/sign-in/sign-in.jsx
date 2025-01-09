@@ -1,22 +1,33 @@
 import { useState } from "react";
-import { login } from "../../services/api";
+import { useNavigate } from "react-router-dom";
+import { login, getUserProfile } from "../../services/api";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 
 const SignIn = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const data = await login({ username, password });
+      const data = await login({ email, password });
       console.log("Login successful:", data);
-      // Save token and user name to localStorage
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("userName", username);
+
+      // Save token to localStorage
+      const { token } = data.body;
+      console.log("Storing token:", token);
+      localStorage.setItem("token", token);
+
+      // Fetch user profile to get firstName and lastName
+      const profileData = await getUserProfile(token);
+      const { firstName } = profileData.body;
+      console.log("Storing user name:", firstName);
+      localStorage.setItem("userName", firstName);
+
       // Redirect to user profile
-      window.location.href = "/user";
+      navigate("/user");
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -31,12 +42,12 @@ const SignIn = () => {
           <h1>Sign In</h1>
           <form onSubmit={handleLogin}>
             <div className="input-wrapper">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="email">Email</label>
               <input
-                type="text"
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="input-wrapper">
