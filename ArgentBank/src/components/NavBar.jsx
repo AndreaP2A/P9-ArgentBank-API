@@ -9,8 +9,6 @@ const NavBar = () => {
     // Check if the user is logged in by checking localStorage or a global state
     const token = localStorage.getItem("token");
     const name = localStorage.getItem("userName");
-    console.log("Retrieved token:", token);
-    console.log("Retrieved user name:", name);
     if (token && name) {
       setIsLoggedIn(true);
       setUserName(name);
