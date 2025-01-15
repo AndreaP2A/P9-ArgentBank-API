@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getUserProfile } from "../services/api";
+import { getUserProfile, updateUserProfile } from "../services/api";
 
 /**
  * Asynchronous thunk action to fetch user profile.
@@ -13,6 +13,26 @@ export const fetchUserProfile = createAsyncThunk(
   async (token) => {
     const response = await getUserProfile(token);
     return response.body;
+  }
+);
+
+/**
+ * Asynchronous thunk action to update user name.
+ *
+ * @function
+ * @param {Object} newName - The new first and last name.
+ * @returns {Promise<Object>} The updated user profile data.
+ */
+export const updateUserName = createAsyncThunk(
+  "user/updateUserName",
+  async (newName, { getState, rejectWithValue }) => {
+    try {
+      const token = getState().user.token;
+      const response = await updateUserProfile(token, newName);
+      return response.body;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 
@@ -54,6 +74,18 @@ export const userSlice = createSlice({
       .addCase(fetchUserProfile.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(updateUserName.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateUserName.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.userName = `${action.payload.firstName} ${action.payload.lastName}`;
+        localStorage.setItem("userName", state.userName);
+      })
+      .addCase(updateUserName.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
       });
   },
 });

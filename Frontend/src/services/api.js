@@ -45,16 +45,16 @@ export const getUserProfile = async (token) => {
   }
 };
 
-// Update user profile
-export const updateUserProfile = async (token, profileData) => {
+// Update user name
+export const updateUserProfile = async (token, newName) => {
   try {
     const response = await fetch(`${API_URL}/profile`, {
       method: "PUT",
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(profileData),
+      body: JSON.stringify(newName),
     });
     return handleResponse(response);
   } catch (error) {

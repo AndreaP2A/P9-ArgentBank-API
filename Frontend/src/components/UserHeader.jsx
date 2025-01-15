@@ -1,12 +1,15 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserName } from "../features/userSlice";
 import EditNameForm from "./EditNameForm";
 
-const UserHeader = ({ userName }) => {
+const UserHeader = () => {
+  const dispatch = useDispatch();
+  const userName = useSelector((state) => state.user.userName);
   const [isEditing, setIsEditing] = useState(false);
 
   const handleSave = (newName) => {
-    console.log("Saved name:", newName);
+    dispatch(updateUserName(newName));
     setIsEditing(false);
   };
 
@@ -37,10 +40,6 @@ const UserHeader = ({ userName }) => {
       )}
     </div>
   );
-};
-
-UserHeader.propTypes = {
-  userName: PropTypes.string.isRequired,
 };
 
 export default UserHeader;
