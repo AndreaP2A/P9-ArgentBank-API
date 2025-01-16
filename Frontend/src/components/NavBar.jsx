@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { clearToken, clearUserName } from "../features/userSlice";
 
+// refactoring avec sous-composants logo et sign-in/out ?
 const NavBar = () => {
   const dispatch = useDispatch();
   const userName = useSelector((state) => state.user.userName);
   const isLoggedIn = useSelector((state) => !!state.user.token);
 
+  // Handling the user logging out -> dispatch of the clearToken and clearUserName actions
   const handleSignOut = () => {
     dispatch(clearToken());
     dispatch(clearUserName());

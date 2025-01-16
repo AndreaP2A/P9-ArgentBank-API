@@ -36,6 +36,7 @@ export const updateUserName = createAsyncThunk(
   }
 );
 
+// Create a slice of the Redux store
 export const userSlice = createSlice({
   name: "user",
   initialState: {

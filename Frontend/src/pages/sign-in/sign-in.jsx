@@ -18,7 +18,7 @@ const SignIn = () => {
       const data = await login({ email, password });
       const { token } = data.body;
       dispatch(setToken(token));
-      await dispatch(fetchUserProfile(token));
+      // dispatch(fetchUserProfile(token));
       navigate("/user");
     } catch (error) {
       console.error("Login failed:", error);
