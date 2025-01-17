@@ -1,0 +1,393 @@
+openapi: 3.0.1
+info:
+  title: ArgentBank API documentation
+  description: |
+    API for ArgentBank.
+
+    #### Features
+    - **User Authentication** : Sign-in with email and password.
+    - **User Profile Management** : Seeing the profile and editing its name.
+    - **Transaction Management**: Seeing all the user's current month transactions, seeing the details of a specific transaction and editing details (category, notes).
+  termsOfService: http://swagger.io/terms/
+  version: 1.0.0
+servers:
+  - url: http://localhost:3001/api/v1
+paths:
+  /user/login:
+    post:
+      tags:
+        - User Module
+      summary: Login
+      description: API for Login
+      requestBody:
+        description: Login Payload
+        content:
+          "*/*":
+            schema:
+              $ref: "#/components/schemas/Login"
+        required: true
+      responses:
+        "200":
+          description: Login Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+        "400":
+          description: Invalid Fields
+          content: {}
+        "500":
+          description: Internal Server Error
+          content: {}
+      x-codegen-request-body-name: body
+  /user/signup:
+    post:
+      tags:
+        - User Module
+      summary: Signup
+      description: API for Signup
+      requestBody:
+        description: Signup Payload
+        content:
+          "*/*":
+            schema:
+              $ref: "#/components/schemas/User"
+        required: true
+      responses:
+        "200":
+          description: Signup Successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "400":
+          description: Invalid Fields
+          content: {}
+        "500":
+          description: Internal Server Error
+          content: {}
+      x-codegen-request-body-name: body
+  /user/profile:
+    put:
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for updating a user profile
+      parameters:
+        - name: Authorization
+          in: header
+          description: Attach Bearer JWT token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update user profile attributes
+        content:
+          "*/*":
+            schema:
+              $ref: "#/components/schemas/UserProfile"
+        required: true
+      responses:
+        "200":
+          description: User profile updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "400":
+          description: Invalid Fields
+          content: {}
+        "500":
+          description: Internal Server Error
+          content: {}
+      security:
+        - Bearer: []
+      x-codegen-request-body-name: body
+    post:
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for fetching a user profile
+      parameters:
+        - name: Authorization
+          in: header
+          description: Attach Bearer JWT token
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: User profile retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "400":
+          description: Invalid Fields
+          content: {}
+        "500":
+          description: Internal Server Error
+          content: {}
+      security:
+        - Bearer: []
+  /user/{userId}/transactions:
+    get:
+      tags:
+        - Transactions Module
+      summary: User transactions API
+      description: API for fetching user transactions
+      parameters:
+        - name: Authorization
+          in: header
+          description: Attach Bearer JWT token
+          required: true
+          schema:
+            type: string
+        - name: userId
+          in: path
+          description: The ID of the user
+          required: true
+          schema:
+            type: string
+        - name: accountId
+          in: query
+          description: The ID of the account to filter transactions
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: User transactions retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransactionsApiResponse"
+        "400":
+          description: Bad request
+          content: {}
+        "500":
+          description: Internal Server Error
+          content: {}
+      security:
+        - Bearer: []
+  /user/{userId}/transactions/{transactionId}:
+    get:
+      tags:
+        - Transactions Module
+      summary: User transaction details API
+      description: Fetching specific user transaction details
+      parameters:
+        - name: userId
+          in: path
+          description: The ID of the user
+          required: true
+          schema:
+            type: string
+        - name: transactionId
+          in: path
+          description: The ID of the transaction to retrieve
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: Attach Bearer JWT token
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Transaction details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransactionApiResponse"
+        "400":
+          description: Bad request
+          content: {}
+        "404":
+          description: Transaction not found
+          content: {}
+        "500":
+          description: Internal Server Error
+          content: {}
+      security:
+        - Bearer: []
+    patch:
+      tags:
+        - Transactions Module
+      summary: User transaction details API (update)
+      description: Update the details of an existing user transaction
+      parameters:
+        - name: userId
+          in: path
+          description: The ID of the user
+          required: true
+          schema:
+            type: string
+        - name: transactionId
+          in: path
+          description: The ID of the transaction to update
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: Attach Bearer JWT token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update transaction attributes
+        content:
+          "*/*":
+            schema:
+              $ref: "#/components/schemas/UserTransactionEdit"
+        required: true
+      responses:
+        "200":
+          description: Transaction updated successfully
+          content: {}
+        "400":
+          description: Bad request
+          content: {}
+        "404":
+          description: Transaction not found
+          content: {}
+        "500":
+          description: Internal Server Error
+          content: {}
+      security:
+        - Bearer: []
+      x-codegen-request-body-name: body
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+          description: user email
+        password:
+          type: string
+          description: user password
+        firstName:
+          type: string
+          description: user first name
+        lastName:
+          type: string
+          description: user last name
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+          description: user email
+        password:
+          type: string
+          description: user password
+    ApiResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
+        body:
+          type: object
+          properties:
+            id:
+              type: string
+            email:
+              type: string
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+    UserProfile:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+    TransactionsApiResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
+        body:
+          type: array
+          items:
+            type: object
+            properties:
+              transaction_id:
+                type: string
+              date:
+                type: string
+                format: date
+              description:
+                type: string
+              amount:
+                type: number
+                format: float
+              balance:
+                type: number
+                format: float
+    TransactionApiResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
+        body:
+          type: object
+          properties:
+            transaction_id:
+              type: string
+            date:
+              type: string
+              format: date
+            description:
+              type: string
+            amount:
+              type: number
+              format: float
+            balance:
+              type: number
+              format: float
+            transactionType:
+              type: string
+            category:
+              type: string
+              enum:
+                - Food
+                - Entertainment
+                - Utilities
+                - Travel
+                - Other
+            notes:
+              type: string
+    UserTransactionEdit:
+      type: object
+      properties:
+        category:
+          type: string
+          enum:
+            - Food
+            - Entertainment
+            - Utilities
+            - Travel
+            - Other
+        notes:
+          type: string
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+x-original-swagger-version: "2.0"
