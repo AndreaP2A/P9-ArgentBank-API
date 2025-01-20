@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { clearToken, clearUserName } from "../features/userSlice";
 
-// refactoring avec sous-composants logo et sign-in/out ?
+// refactoring avec sous-composants logo et sign-in/out
 const NavBar = () => {
   const dispatch = useDispatch();
   const userName = useSelector((state) => state.user.userName);
@@ -13,6 +13,8 @@ const NavBar = () => {
     dispatch(clearToken());
     dispatch(clearUserName());
   };
+
+  const firstName = userName.split(" ")[0];
 
   return (
     <nav className="main-nav">
@@ -27,17 +29,17 @@ const NavBar = () => {
       <div>
         {isLoggedIn ? (
           <>
-            <Link className="main-nav-item" to="/user">
+            <Link className="main-nav-item" to="/user/profile">
               <i className="fa fa-user-circle"></i>
-              {userName}
+              {firstName}
             </Link>
-            <Link className="main-nav-item" to="/" onClick={handleSignOut}>
+            <Link className="main-nav-item" to="/home" onClick={handleSignOut}>
               <i className="fa fa-sign-out"></i>
               Sign Out
             </Link>
           </>
         ) : (
-          <Link className="main-nav-item" to="/sign-in">
+          <Link className="main-nav-item" to="/user/login">
             <i className="fa fa-user-circle"></i>
             Sign In
           </Link>

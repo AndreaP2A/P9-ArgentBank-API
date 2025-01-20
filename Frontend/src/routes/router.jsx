@@ -1,4 +1,5 @@
 import { HashRouter as Router, Route, Routes } from "react-router-dom"; //BrowserRouter didn't work (??)
+import { Navigate } from "react-router-dom";
 import Home from "../pages/home/home";
 import SignIn from "../pages/sign-in/sign-in";
 import User from "../pages/user/user";
@@ -9,9 +10,10 @@ const AppRouter = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/home" element={<Navigate to="/" />} />
+        <Route path="user/login" element={<SignIn />} />
         <Route
-          path="/user"
+          path="/user/profile"
           element={
             <ProtectedRoute>
               <User />

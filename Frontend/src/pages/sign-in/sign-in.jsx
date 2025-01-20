@@ -19,7 +19,7 @@ const SignIn = () => {
       const { token } = data.body;
       dispatch(setToken(token));
       // dispatch(fetchUserProfile(token));
-      navigate("/user");
+      navigate("/user/profile");
     } catch (error) {
       console.error("Login failed:", error);
     }
