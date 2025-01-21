@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { clearToken, clearUserName } from "../features/userSlice";
 
-// refactoring avec sous-composants logo et sign-in/out
+/**
+ * NavBar component for displaying the navigation bar with user authentication links.
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 const NavBar = () => {
   const dispatch = useDispatch();
   const userName = useSelector((state) => state.user.userName);

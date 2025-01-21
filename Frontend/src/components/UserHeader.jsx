@@ -3,6 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUserName } from "../features/userSlice";
 import EditNameForm from "./EditNameForm";
 
+/**
+ * UserHeader component for displaying the user's header with an option to edit the user's name.
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 const UserHeader = () => {
   const dispatch = useDispatch();
   const userName = useSelector((state) => state.user.userName);

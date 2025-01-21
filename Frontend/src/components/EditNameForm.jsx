@@ -1,6 +1,16 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
+/**
+ * EditNameForm component for editing user's first and last name.
+ *
+ * @param {Object} props - The component props.
+ * @param {Function} props.onSave - Function to call when saving the new names.
+ * @param {Function} props.onCancel - Function to call when cancelling the edit.
+ * @param {string} props.currentFirstName - The current first name of the user.
+ * @param {string} props.currentLastName - The current last name of the user.
+ * @returns {JSX.Element} The rendered component.
+ */
 const EditNameForm = ({
   onSave,
   onCancel,
