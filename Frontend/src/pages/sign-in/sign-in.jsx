@@ -6,6 +6,11 @@ import { login } from "../../services/api";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 
+/**
+ * SignIn component for handling user login.
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,7 +23,7 @@ const SignIn = () => {
       const data = await login({ email, password });
       const { token } = data.body;
       dispatch(setToken(token));
-      // dispatch(fetchUserProfile(token));
+      dispatch(fetchUserProfile(token));
       navigate("/user/profile");
     } catch (error) {
       console.error("Login failed:", error);
