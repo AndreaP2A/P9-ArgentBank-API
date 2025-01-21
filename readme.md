@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="./Frontend/src/assets/img/argentBankLogo.png alt="Logo ArgentBank">
+    <img src="./Frontend/src/assets/img/argentBankLogo.png" alt="Logo ArgentBank">
     <h3 align="center">ArgentBank</h3>
     <p align="center">ArgentBank est une application web de la banque éponyme qui permet à ses clients de se connecter et de gérer leurs comptes et leur profil.</p>
 </div>
