@@ -23,6 +23,7 @@ const SignIn = () => {
       const data = await login({ email, password });
       const { token } = data.body;
       dispatch(setToken(token));
+      // removed dispatch(fetchUserProfile(token)) to prevent multiple dispatches
       navigate("/user/profile");
     } catch (error) {
       console.error("Login failed:", error);
