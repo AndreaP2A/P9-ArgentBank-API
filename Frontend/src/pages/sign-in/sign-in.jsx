@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setToken, fetchUserProfile } from "../../features/userSlice";
+import { setToken } from "../../features/userSlice";
 import { login } from "../../services/api";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
@@ -23,7 +23,6 @@ const SignIn = () => {
       const data = await login({ email, password });
       const { token } = data.body;
       dispatch(setToken(token));
-      dispatch(fetchUserProfile(token));
       navigate("/user/profile");
     } catch (error) {
       console.error("Login failed:", error);

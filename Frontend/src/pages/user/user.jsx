@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import NavBar from "../../components/NavBar";
 import UserHeader from "../../components/UserHeader";
@@ -10,12 +10,16 @@ const User = () => {
   const dispatch = useDispatch();
   const userName = useSelector((state) => state.user.userName);
   const token = useSelector((state) => state.user.token);
+  const hasFetchedProfile = useRef(false); // to prevent multiple dipatches of fetchUserProfile
 
   useEffect(() => {
-    if (token) {
+    console.log("useEffect triggered", { token, userName });
+    if (token && !userName && !hasFetchedProfile.current) {
+      console.log("Dispatching fetchUserProfile");
+      hasFetchedProfile.current = true; // Set the flag immediately after first dispatch to prevent other dispatches
       dispatch(fetchUserProfile(token));
     }
-  }, [token, dispatch]);
+  }, [token, userName, dispatch]);
 
   return (
     <div>
