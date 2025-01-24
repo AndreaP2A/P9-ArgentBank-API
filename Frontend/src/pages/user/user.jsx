@@ -13,9 +13,7 @@ const User = () => {
   const hasFetchedProfile = useRef(false); // to prevent multiple dipatches of fetchUserProfile
 
   useEffect(() => {
-    console.log("useEffect triggered", { token, userName });
     if (token && !userName && !hasFetchedProfile.current) {
-      console.log("Dispatching fetchUserProfile");
       hasFetchedProfile.current = true; // Set the flag immediately after first dispatch to prevent other dispatches
       dispatch(fetchUserProfile(token));
     }
