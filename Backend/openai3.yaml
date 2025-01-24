@@ -120,8 +120,8 @@ paths:
     get:
       tags:
         - Transactions Module
-      summary: User transactions API
-      description: API for fetching user transactions
+      summary: User current month transactions API
+      description: API for fetching user transactions for the current month
       parameters:
         - name: userId
           in: path
