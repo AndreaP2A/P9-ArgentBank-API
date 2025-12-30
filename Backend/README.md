@@ -1,72 +1,50 @@
-# Project #10 - Argent Bank API
+# Argent Bank — Backend
+![Node.js](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+![Swagger](https://img.shields.io/badge/-Swagger-%23C1E1C5?style=for-the-badge&logo=swagger&logoColor=black)
 
-This codebase contains the code needed to run the backend for Argent Bank.
+Ce répertoire contient l'API REST sécurisée de l'application Argent Bank. Elle gère l'authentification des utilisateurs et la gestion des profils.
 
-## Getting Started
+## 🚀 Installation et Démarrage
 
-### Prerequisites
-
-Argent Bank uses the following tech stack:
-
-- [Node.js v12](https://nodejs.org/en/)
-- [MongoDB Community Server](https://www.mongodb.com/try/download/community)
-
-Please make sure you have the right versions and download both packages. You can verify this by using the following commands in your terminal:
-
-```bash
-# Check Node.js version
-node --version
-
-# Check Mongo version
-mongo --version
-```
+### Prérequis
+- **Node.js** (Version 12.x recommandé pour ce backend spécifique)
+- **MongoDB** (Doit être installé et lancé sur votre machine)
 
 ### Instructions
+1. **Installation des dépendances** :
+   ```bash
+   npm install
+   ```
 
-1. Fork this repo
-1. Clone the repo onto your computer
-1. Open a terminal window in the cloned project
-1. Run the following commands:
+2. **Initialisation de la base de données** :
+   Exécutez cette commande pour remplir la base de données avec des utilisateurs de test :
+   ```bash
+   npm run populate-db
+   ```
 
-```bash
-# Install dependencies
-npm install
+3. **Lancement du serveur** :
+   ```bash
+   npm run dev:server
+   ```
+   Le serveur sera accessible sur `http://localhost:3001`.
 
-# Start local dev server
-npm run dev:server
+## 📄 Documentation API
+Une documentation complète des endpoints est disponible via **Swagger**. Une fois le serveur lancé, accédez à :
+👉 `http://localhost:3001/api-docs`
 
-# Populate database with two users
-npm run populate-db
-```
+## 👥 Données de Test (Utilisateurs)
+Après avoir exécuté le script `populate-db`, vous pouvez utiliser les identifiants suivants :
 
-Your server should now be running at http://locahost:3001 and you will now have two users in your MongoDB database!
+| Utilisateur | Email | Mot de passe |
+| :--- | :--- | :--- |
+| **Tony Stark** | `tony@stark.com` | `password123` |
+| **Steve Rogers** | `steve@rogers.com` | `password456` |
 
-## Populated Database Data
-
-Once you run the `populate-db` script, you should have two users in your database:
-
-### Tony Stark
-
-- First Name: `Tony`
-- Last Name: `Stark`
-- Email: `tony@stark.com`
-- Password: `password123`
-
-### Steve Rogers
-
-- First Name: `Steve`,
-- Last Name: `Rogers`,
-- Email: `steve@rogers.com`,
-- Password: `password456`
-
-## API Documentation
-
-To learn more about how the API works, once you have started your local environment, you can visit: http://localhost:3001/api-docs
-
-## Design Assets
-
-Static HTML and CSS has been created for most of the site and is located in: `/designs`.
-
-For some of the dynamic features, like toggling user editing, there is a mock-up for it in `/designs/wireframes/edit-user-name.png`.
-
-And for the API model that you will be proposing for transactitons, the wireframe can be found in `/designs/wireframes/transactions.png`.
+## 🛠️ Stack Technique
+- **Runtime** : Node.js
+- **Framework** : Express.js
+- **Base de données** : MongoDB
+- **Sécurité** : JWT (JSON Web Tokens) & Bcrypt
+- **Documentation** : Swagger UI / OpenAPI 3.0
